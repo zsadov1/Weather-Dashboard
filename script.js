@@ -1,38 +1,72 @@
- // This is our API key
- var APIKey = "166a433c57516f51dfab1f7edaed8413";
-
- // Here we are building the URL we need to query the database
- var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-   "q=Bujumbura,Burundi&units=imperial&appid=" + APIKey;
-
-// Here we run our AJAX call to the OpenWeatherMap API
+function getWeatherData(){
+  //  get value of location input
+  const location = document.getElementById("location").value
+  const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=285389a3277aea781676df3316670296`;
+  const fiveDayURL = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=imperial&appid=285389a3277aea781676df3316670296`;
+  // const uvIndex = `http://api.openweathermap.org/data/2.5/uvi?appid={285389a3277aea781676df3316670296}&lat=${lat}&lon=${lon}`;
 
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-  })
-    // We store all of the retrieved data inside of an object called "response"
-    .then(function(response) {
+  // I used a fetch call instead on an AJAX call to get data.  It was more streamlined and easier to read
+  fetch(queryURL).then(data => { 
+    
+    
+    return data.json();
+  
+  
+  
+  
+  }).then(weather => { 
+  
+  
+  
+  
+    console.log("weather", weather) 
 
-      // Log the queryURL
-      console.log(queryURL);
 
-      // Log the resulting object
-      console.log(response);
+    // Transfer content to HTML
+    $(".city").html("<h1>" + weather.name + " Weather</h1>");
+    $(".wind").text("Wind Speed: " + weather.wind.speed);
+    $(".humidity").text("Humidity%: " + weather.main.humidity);
+    $(".temp").text("Temperature (F) " + weather.main.temp);
 
-      // Transfer content to HTML
-      $(".city").html("<h1>" + response.name + " Weather Details</h1>");
-      $(".wind").text("Wind Speed: " + response.wind.speed);
-      $(".humidity").text("Humidity: " + response.main.humidity);
-      $(".temp").text("Temperature (F) " + response.main.temp);
 
-      // Converts the temp to Kelvin with the below formula
-      var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-      $(".tempF").text("Temperature (Kelvin) " + tempF);
+    })
 
-      // Log the data in the console as well
-      console.log("Wind Speed: " + response.wind.speed);
-      console.log("Humidity: " + response.main.humidity);
-      console.log("Temperature (F): " + response.main.temp);
-    });
+    fetch(fiveDayURL).then(data => { 
+    
+    
+      return data.json();
+    
+    
+    
+    
+    }).then(forecast => { 
+
+      var forecastTimes = [0, 7, 15, 23, 31, 39];
+        var i;
+        $("#forecastDisplay").empty();
+          for (i = 0; i < forecastTimes.length; i++) {
+            var date = forecast.list[forecastTimes[i]].dt_txt
+              $('#forecastDisplay').append("<li>" + "Date: " + forecast.list[forecastTimes[i]].dt_txt + "</li>");
+              $('#forecastDisplay').append("<li>" + "Temp: " + forecast.list[forecastTimes[i]].main.temp + "</li>");
+              $('#forecastDisplay').append("<li>" + "Humidity: " + forecast.list[forecastTimes[i]].main.humidity + "</li>");
+              $('#forecastDisplay').append("<image src=http://openweathermap.org/img/wn/" + forecast.list[forecastTimes[i]].weather[0].icon + "@2x.png id=icon1>");
+     }
+
+  
+      
+    
+    
+    
+    
+      console.log("forecast", forecast) 
+      
+
+
+      
+    
+      })
+
+    
+
+}

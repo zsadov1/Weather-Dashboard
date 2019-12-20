@@ -1,5 +1,16 @@
 .navH1{
     color: white;
     text-align: center;
+    background-color: grey;
    
+}
+
+.h3{
+    display: flex;
+    justify-content: right;
+}
+
+.display{
+    align-items: center;
+
 }

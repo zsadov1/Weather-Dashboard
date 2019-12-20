@@ -10,27 +10,39 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-    <h1 class="navH1">Weather Dashboard</h1>
-    </nav> 
+    <div class="container">
+        <div class="jumbotron jumbotrom-fluid">
+            <div class="container">
+                <h1 class="display-4">Weather Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    
 <!-- This is my container for location searches and displaying past queries  -->
     <div class="container">
         <div class="row">
             <div>
                 <div class="input-group mb-4">
-                <input type="search" placeholder="Location..." aria-describedby="button-addon5" class="form-control">
+                <input  id="location" type="search" placeholder="Location..." aria-describedby="button-addon5" class="form-control">
                 <div class="input-group-append">
-                <button id="button-addon5" type="submit" class="btn btn-primary"><i class="fa fa-search"></i> 🔍</button>
+                <button onclick="getWeatherData()" id="search" type="submit" class="btn btn-primary"><i class="fa fa-search"></i> 🔍</button>
             </div>  
     </div>
 
-    <div>
-        <!-- Retrieved data will be dumped here -->
-        <div class="city"></div>
-        <div class="wind"></div>
-        <div class="humidity"></div>
-        <div class="temp"></div>
+    <div class="container">
+        <div class="row"></div>
+            <div class="city" class="col-md-6" ></div>
+            <div class="wind"></div>
+            <div class="humidity"></div>
+            <div class="temp"></div>
+        </div>
     </div>
+
+    <div class="container">
+            <h3 class="h3">5 Day-Forecast</h3>
+            <ul class="display" id="forecastDisplay"></ul> 
+     </div>
+    
         
         
 
