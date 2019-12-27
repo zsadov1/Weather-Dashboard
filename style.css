@@ -5,12 +5,16 @@
    
 }
 
-.h3{
+/* .h3{
     display: flex;
     justify-content: right;
+} */
+
+.display-1{
+    text-align: center;
+
 }
 
-.display{
-    align-items: center;
-
+.weather-box {
+    padding: 0px 6px;
 }
